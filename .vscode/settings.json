@@ -1,0 +1,13 @@
+{
+    "terminal.integrated.env.osx": {
+        "SFDX_SET_CLIENT_IDS": "sfdx-vscode"
+    },
+    "terminal.integrated.env.linux": {
+        "SFDX_SET_CLIENT_IDS": "sfdx-vscode"
+    },
+    "terminal.integrated.env.windows": {
+        "SFDX_SET_CLIENT_IDS": "sfdx-vscode"
+    },
+    "salesforcedx-vscode-core.show-cli-success-msg": false,
+    "eslint.nodePath": "/Users/grewis/.vscode/extensions/salesforce.salesforcedx-vscode-lwc-47.6.0/node_modules"
+}

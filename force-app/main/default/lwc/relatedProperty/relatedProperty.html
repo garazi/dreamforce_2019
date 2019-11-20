@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-media">
+        <div class="slds-media__figure">
+            <img src={item.Thumbnail__c} class="slds-avatar_large slds-avatar_circle" alt={item.Title_c} />
+          </div>
+            <div class="slds-media__body">
+                <div class="slds-grid slds-hint-parent">
+                    <a onclick={navigateToRecord}>
+                  <h3 class="slds-text-heading_small slds-m-bottom_xx-small">{item.Name}</h3>
+                </a>
+                </div>
+                <lightning-record-form record-id={item.Id}
+                                   object-api-name="Property__c"
+                                   fields={propertyFields}
+                                   columns="2"
+                                   mode="View"
+                                   onsuccess={fireToast}></lightning-record-form>
+            </div>
+        </div>
+        
+</template>

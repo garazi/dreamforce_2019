@@ -1,0 +1,32 @@
+<aura:component controller="BrokerSelect" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global">
+
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="fieldsToDisplay" type="String" default ="Id"/>
+    <aura:attribute name="title" type="String" />
+    <aura:attribute name="icon" type="String" />
+    <aura:attribute name="layoutType" type="String" default="Custom" />
+    <aura:attribute name="numberOfColumns" type="String" default="1" />
+    <aura:attribute name="fieldsArray" type="String[]" default ="Id" />
+    <aura:attribute name="mode" type="String" />
+    
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card iconName="{! v.icon}" title="{! v.title}">
+        <div class="slds-p-left_large slds-p-right_medium">
+                <div class="slds-p-around_medium lgc-bg">
+                        <lightning:helptext
+        content="The tooltip displays on the lower left of the icon or above the icon if space is available. It automatically adjusts its position according to the viewport."
+    />
+                    </div>
+            <lightning:recordForm aura:id="recordForm" 
+                                  recordId="{!v.recordId}" 
+                                  objectApiName="{!v.sObjectName}"
+                                  fields= "{!v.fieldsArray}"
+                                  columns="{!v.numberOfColumns}"
+                                  mode ="{!v.mode}"
+                                  onsuccess = "{!c.showToast}" />
+            
+        </div>
+    </lightning:card>
+</aura:component>

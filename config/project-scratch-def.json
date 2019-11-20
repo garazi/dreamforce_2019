@@ -1,0 +1,11 @@
+{
+    "orgName": "LWC Workshop",
+    "edition": "Developer",
+    "hasSampleData": "true",
+    "settings": {
+        "orgPreferenceSettings": {
+            "s1DesktopEnabled": true,
+            "s1EncryptedStoragePref2": false
+        }
+    }
+}

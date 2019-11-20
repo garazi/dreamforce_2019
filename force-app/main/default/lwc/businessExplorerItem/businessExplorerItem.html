@@ -1,0 +1,8 @@
+<template>
+        <div class="slds-grid slds-wrap" onclick={handleClick}>
+        <h3 class="slds-text-heading--small slds-m-bottom--x-small slds-size_1-of-1">{item.name}</h3>
+        <p class="slds-size_1_of_1">
+            <img src={item.ratingImg} alt={item.rating} class="ratingStars slds-m-right_small" /> {item.reviewCount} reviews </p>
+            <span class="slds-col_bump-left"><lightning-formatted-number value={item.distance} maximum-fraction-digits="2"></lightning-formatted-number> miles</span>
+            </div>
+</template>

@@ -1,0 +1,8 @@
+<design:component label="Form Builder Aura">
+	<design:attribute name="sObjectName" label="Object" description ="ObjectApiName" />
+    <design:attribute name="title" label="Title" />
+    <design:attribute name="icon" label="Icon" description="Use category:iconName from SLDS" />
+    <design:attribute name="numberOfColumns" label="Columns" />
+    <design:attribute name="mode" label="Mode"  datasource = "view, edit, readonly" /> 
+    <design:attribute name="fieldsToDisplay" label="Fields" description ="Comma seperated list of fields" /> 
+</design:component>

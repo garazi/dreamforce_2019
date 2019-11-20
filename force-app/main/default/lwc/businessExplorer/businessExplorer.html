@@ -1,0 +1,40 @@
+<template>
+    <lightning-card title="Business Explorer"
+                    icon-name="custom:custom96"
+                    class={flexipageRegionWidth}>
+        <div class="slds-p-horizontal_medium">
+            <lightning-map map-markers={mapMarkers}
+                           markers-title={cardTitle}
+                           zoom-level={zoomLevel}
+                           list-view="hidden"></lightning-map>
+            <lightning-tabset>
+                <template for:each={tabs}
+                          for:item="item"
+                          if:true={tabs}>
+                    <lightning-tab label={item.label}
+                                   key={item.id}
+                                   value={item.value}
+                                   onactive={handleActive}
+                                   class="noSpace">
+                        <ul class={heightCSS}>
+                            <template for:each={bizArray}
+                                      for:item="item"
+                                      if:true={bizArray}>
+                                <li key={item.id}
+                                    class="slds-list__item">
+                                    <c-business-explorer-item item={item}
+                                                              onselect={createMapMarkers}></c-business-explorer-item>
+                                </li>
+                            </template>
+                        </ul>
+                        <template if:false={loaded}>
+                                <lightning-spinner alternative-text="Loading"
+                                                   size="medium"></lightning-spinner>
+                            </template>
+                    </lightning-tab>
+                </template>
+            </lightning-tabset>
+
+        </div>
+    </lightning-card>
+</template>

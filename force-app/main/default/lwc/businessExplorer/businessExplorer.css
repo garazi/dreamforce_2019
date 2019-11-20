@@ -1,0 +1,21 @@
+.ratingStars {
+    max-width: 6.5rem;
+}
+.mapConfig {
+    max-height: 12rem;
+}
+.small {
+    height: 21.35rem;
+    overflow: scroll;
+}
+.medium {
+    height: 37rem;
+    overflow: scroll;
+}
+.large {
+    height: 50rem;
+    overflow: scroll;
+}
+.noSpace {
+    padding-top: 0;
+}

@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/auraPubsub": [
+                "auraPubsub/auraPubsub.js"
+            ],
+            "c/brokerCard": [
+                "brokerCard/brokerCard.js"
+            ],
+            "c/businessExplorer": [
+                "businessExplorer/businessExplorer.js"
+            ],
+            "c/businessExplorerItem": [
+                "businessExplorerItem/businessExplorerItem.js"
+            ],
+            "c/formBuilder": [
+                "formBuilder/formBuilder.js"
+            ],
+            "c/greeting": [
+                "greeting/greeting.js"
+            ],
+            "c/pubsub": [
+                "pubsub/pubsub.js"
+            ],
+            "c/relatedProperties": [
+                "relatedProperties/relatedProperties.js"
+            ],
+            "c/relatedProperty": [
+                "relatedProperty/relatedProperty.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}

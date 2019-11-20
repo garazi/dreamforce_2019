@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title={cardTitle}
+                    icon-name="custom:custom85">
+        <div class="slds-m-around_medium">
+            <ul class="slds-list_vertical slds-has-dividers_top-space">
+                <template for:each={props}
+                          for:item="item"
+                          if:true={props}>
+                    <li key={item.Id}
+                        class="slds-list__item">
+                        <c-related-Property item={item}></c-related-Property>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </lightning-card>
+</template>
