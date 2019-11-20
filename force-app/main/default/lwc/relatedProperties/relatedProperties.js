@@ -82,6 +82,6 @@ export default class RelatedProperties extends LightningElement {
     }
 
     renderedCallback() {
-        this.cardTitle = 'Related Properties by ' + this.searchCriteria;
+        this.cardTitle = 'Similar Properties by ' + this.searchCriteria;
     }
 }
