@@ -6,14 +6,13 @@ import { CurrentPageReference } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 
 // Import LMS and messageChannel we will be using
-import { subscribe, unsubscribe, createMessageContext, releaseMessageContext } from 'lightning/messageService';
+import { subscribe, createMessageContext, releaseMessageContext } from 'lightning/messageService';
 import TEST_CHANNEL from "@salesforce/messageChannel/Test__c";
 
 import NAME_FIELD from '@salesforce/schema/Property__c.Name';
 import PRICE_FIELD from '@salesforce/schema/Property__c.Price__c';
 import STATUS_FIELD from '@salesforce/schema/Property__c.Status__c';
 import BEDS_FIELD from '@salesforce/schema/Property__c.Beds__c';
-import BATHS_FIELD from '@salesforce/schema/Property__c.Baths__c';
 import BROKER_FIELD from '@salesforce/schema/Property__c.Broker__c';
 
 const fields = [NAME_FIELD,PRICE_FIELD,BEDS_FIELD,STATUS_FIELD,BROKER_FIELD];
@@ -61,10 +60,10 @@ export default class RelatedProperties extends LightningElement {
         }
     }
 
-    //@wire(CurrentPageReference) pageRef; <-- no longer used. replaced by LMS
+    @wire(CurrentPageReference) pageRef; // no longer used. replaced by LMS
 
     connectedCallback() {
-        //registerListener('propertyUpdated', this.refreshSelection, this); <-- replaced by LMS
+        registerListener('propertyUpdated', this.refreshSelection, this); // replaced by LMS
         
         // check to see if a subscription exists, otherwise create it on the test_channel
         if (this.subscription) {
@@ -74,7 +73,7 @@ export default class RelatedProperties extends LightningElement {
     }
 
     disconnectedCallback() {
-        //unregisterAllListeners(this);
+        unregisterAllListeners(this); // from pubsub
         releaseMessageContext(this.context);
     }
     refreshSelection() {
@@ -82,6 +81,6 @@ export default class RelatedProperties extends LightningElement {
     }
 
     renderedCallback() {
-        this.cardTitle = 'Similar Properties by ' + this.searchCriteria;
+        this.cardTitle = 'Similar Properties by ' + this.searchCriteria + ' (LWC)';
     }
 }
