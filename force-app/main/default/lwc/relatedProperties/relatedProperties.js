@@ -1,21 +1,16 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
-import findProperties from '@salesforce/apex/RelatedPropertyController.getSimilarProperties';
+import getSimilarProperties from '@salesforce/apex/RelatedPropertyController.getSimilarProperties';
 import { registerListener, unregisterAllListeners } from 'c/pubsub';
 import { CurrentPageReference } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 
-// Import LMS and messageChannel we will be using
-import { subscribe, createMessageContext, releaseMessageContext } from 'lightning/messageService';
-import TEST_CHANNEL from "@salesforce/messageChannel/Test__c";
-
-import NAME_FIELD from '@salesforce/schema/Property__c.Name';
-import PRICE_FIELD from '@salesforce/schema/Property__c.Price__c';
-import STATUS_FIELD from '@salesforce/schema/Property__c.Status__c';
-import BEDS_FIELD from '@salesforce/schema/Property__c.Beds__c';
-import BROKER_FIELD from '@salesforce/schema/Property__c.Broker__c';
-
-const fields = [NAME_FIELD,PRICE_FIELD,BEDS_FIELD,STATUS_FIELD,BROKER_FIELD];
+const fields = [
+    'Property__c.Name',
+    'Property__c.Price__c',
+    'Property__c.Status__c',
+    'Property__c.Beds__c'
+]
 
 export default class RelatedProperties extends LightningElement {
     @api recordId;
@@ -26,11 +21,9 @@ export default class RelatedProperties extends LightningElement {
     @track beds;
     @track cardTitle;
     @api searchCriteria;
-    @api priceRange;
+    @api priceRange = '100000';
 
-    // Set message context and subscription object in LMS
-    context = createMessageContext();
-    subscription = null;
+    @wire(CurrentPageReference) pageRef;
 
     @wire(getRecord, {recordId: '$recordId', fields})
     wiredProperty(value) {
@@ -38,18 +31,19 @@ export default class RelatedProperties extends LightningElement {
             this.property = value.data;
             this.price = this.property.fields.Price__c.value;
             this.beds = this.property.fields.Beds__c.value;
+            this.cardTitle = 'Similar Properties by ' + this.searchCriteria;
         } else if (value.error) {
             console.log("OOOPS: ", value.error)
         }
     }
 
-    @wire(findProperties, {
+    @wire(getSimilarProperties, { 
         recordId: '$recordId',
-        priceRange: '$priceRange',
         searchCriteria: '$searchCriteria',
+        beds: '$beds',
         price: '$price',
-        beds: '$beds'
-    })
+        priceRange: '$priceRange'
+     })
     wiredProps(value) {
         this.wiredRecords = value;
         if (value.error) {
@@ -57,30 +51,22 @@ export default class RelatedProperties extends LightningElement {
             console.log("ERROR: ", this.errorMsg);
         } else if (value.data) {
             this.props = value.data;
+            console.log("HERE: ", value.data);
         }
     }
 
-    @wire(CurrentPageReference) pageRef; // no longer used. replaced by LMS
-
     connectedCallback() {
-        registerListener('propertyUpdated', this.refreshSelection, this); // replaced by LMS
-        
-        // check to see if a subscription exists, otherwise create it on the test_channel
-        if (this.subscription) {
-            return;
-        }
-        this.subscription = subscribe(this.context, TEST_CHANNEL, this.refreshSelection.bind(this));
+        registerListener('propertyUpdated', this.refreshSelection, this);
     }
 
     disconnectedCallback() {
-        unregisterAllListeners(this); // from pubsub
-        releaseMessageContext(this.context);
+        unregisterAllListeners(this);
     }
     refreshSelection() {
         refreshApex(this.wiredRecords);
     }
 
     renderedCallback() {
-        this.cardTitle = 'Similar Properties by ' + this.searchCriteria + ' (LWC)';
+        this.cardTitle = 'Related Properties by ' + this.searchCriteria;
     }
 }
